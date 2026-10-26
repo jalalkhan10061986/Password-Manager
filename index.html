@@ -1,0 +1,260 @@
+  <!--
+  Project Title   : Password Manager
+  Version         : 1.0.0
+  Author          : Jalal Khan
+  Company         : Eastern Solution
+  Developed By    : Eastern Solution Team
+  Project Type    : Web Application
+  Technology      : JavaScript, HTML5, CSS3, AJAX and JSON
+  License         : Proprietary / Open Source
+  Start Date      : Oct-26-2026
+  Last Updated    : Oct-26-2026
+  Collation       : utf8mb4_unicode_ci
+  Status          : Active Development
+  Client          : Internal / Customer / Individual / student
+  Contact Email   : jalalkhan121@gmail.com
+  License         : MIT Free License
+  Copyright       : © 2026 Eastern Solution. All Rights Reserved.
+  -->
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Password Manager</title>
+  <style>
+  :root{--bg:#f3f2f1;--card:#fff;--tx:#201f1e;--mu:#605e5c;--bd:#e1dfdd;--pr:#0078d4;--pr2:#106ebe;--dg:#d13438;--ok:#107c10;--wn:#ca5010;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  @media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1b1a19;--card:#292827;--tx:#f3f2f1;--mu:#a19f9d;--bd:#3b3a39;--pr:#4aa3f0;--pr2:#2b88d8}}
+  :root[data-theme=dark]{--bg:#1b1a19;--card:#292827;--tx:#f3f2f1;--mu:#a19f9d;--bd:#3b3a39;--pr:#4aa3f0;--pr2:#2b88d8}
+  *{box-sizing:border-box}html,body{height:100%;margin:0}
+  body{background:var(--bg);color:var(--tx);font:15px/1.4 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+  .glyphicon{width:20px;height:20px;fill:currentColor;vertical-align:middle;flex:none}
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  #app{max-width:520px;height:100%;margin:0 auto;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+  header{background:var(--pr);color:#fff;padding:14px 16px 12px;display:flex;align-items:center;gap:10px}
+  header h1{font-size:19px;font-weight:600;margin:0;flex:1}
+  header button{color:#fff;padding:6px;border-radius:50%}header button:hover{background:#ffffff30}
+  .search{padding:10px 16px;background:var(--pr);display:flex;align-items:center;gap:8px;color:#fff}
+  .search input{flex:1;border:0;border-radius:6px;padding:9px 12px;font:inherit;background:#ffffff2e;color:#fff;outline:0}
+  .search input::placeholder{color:#ffffffc0}
+  main{flex:1;overflow-y:auto;padding:12px 12px 90px}
+  .view{display:none}.view.on{display:block}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px}
+  .chip{padding:5px 13px;border-radius:16px;background:var(--card);border:1px solid var(--bd);white-space:nowrap;font-size:13px}
+  .chip.on{background:var(--pr);border-color:var(--pr);color:#fff}
+  .item{background:var(--card);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 1px 2px #0001}
+  .av{width:42px;height:42px;border-radius:50%;color:#fff;font-weight:600;font-size:18px;display:grid;place-items:center;flex:none}
+  .meta{flex:1;min-width:0}.meta b,.meta small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .meta small{color:var(--mu)}
+  .ib{padding:8px;border-radius:50%;color:var(--mu)}.ib:hover{background:var(--bg);color:var(--pr)}.ib.fav{color:#f2a900}
+  .code{font-size:26px;font-weight:300;letter-spacing:2px;color:var(--pr)}
+  .ring{width:34px;height:34px;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:3.500}
+  .empty{text-align:center;color:var(--mu);padding:50px 20px}.empty .glyphicon{width:56px;height:56px;opacity:.4}
+  nav{position:absolute;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+  nav button{flex:1;padding:9px 0 7px;font-size:11px;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:2px}
+  nav button.on{color:var(--pr)}
+  .fab{position:absolute;right:18px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;background:var(--pr);color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px #0004}
+  .fab .glyphicon{width:26px;height:26px}
+  .card{background:var(--card);border-radius:8px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px #0001}
+  .card h3{margin:0 0 10px;font-size:14px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  label{display:block;font-size:12.500px;color:var(--mu);margin:10px 0 4px}
+  input[type=text],input[type=password],input[type=number],select,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);font:inherit;outline:0}
+  input:focus,select:focus,textarea:focus{border-color:var(--pr)}
+  .row{display:flex;gap:8px;align-items:center}
+  .btn{background:var(--pr);color:#fff;padding:10px 16px;border-radius:6px;font-weight:600;display:inline-flex;gap:6px;align-items:center;justify-content:center}
+  .btn:hover{background:var(--pr2)}.btn.sec{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}.btn.dg{background:var(--dg)}.btn.w{width:100%}
+  .bar{height:6px;border-radius:3px;background:var(--bd);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;width:0;transition:.3s}
+  .genout{font:19px/1.4 ui-monospace,Consolas,monospace;word-break:break-all;padding:14px;background:var(--bg);border-radius:8px;margin-bottom:10px;min-height:56px}
+  .opt{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}
+  .sheet-bg{position:absolute;inset:0;background:#0008;display:none;align-items:flex-end;z-index:20}.sheet-bg.on{display:flex}
+  .sheet{background:var(--card);width:100%;max-height:92%;overflow-y:auto;border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+  .sheet h2{margin:0 0 4px;font-size:18px}
+  #lock{position:absolute;inset:0;z-index:50;background:linear-gradient(160deg,#0078d4,#004e8c);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
+  #lock .glyphicon{width:64px;height:64px}#lock h1{margin:10px 0 4px}#lock p{opacity:.85;margin:0 0 20px}
+  #lock input{max-width:320px;text-align:center;margin-bottom:10px;background:#fff;color:#201f1e}
+  #lock .btn{background:#fff;color:#0078d4;max-width:320px}
+  #lock .err{color:#ffd0d0;min-height:20px;font-size:13px}
+  #toast{position:absolute;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#323130;color:#fff;padding:9px 16px;border-radius:20px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:60;white-space:nowrap}
+  #toast.on{opacity:1}
+  .hide{display:none!important}
+  </style>
+  </head>
+  <body>
+  <svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="g-lock" viewBox="0 0 24 24"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9V6z"/></symbol>
+  <symbol id="g-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></symbol>
+  <symbol id="g-search" viewBox="0 0 24 24"><path d="M15.500 14h-.8l-.3-.3A6.500 6.500 0 1 0 14 15.500l.3.3v.8l5 5 1.500-1.500-5-5zm-6 0a4.500 4.500 0 1 1 0-9 4.500 4.500 0 0 1 0 9z"/></symbol>
+  <symbol id="g-star" viewBox="0 0 24 24"><path d="M12 17.300l6.200 3.700-1.600-7L22 9.200l-7.200-.6L12 2 9.200 8.600 2 9.200l5.500 4.800-1.600 7z"/></symbol>
+  <symbol id="g-copy" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></symbol>
+  <symbol id="g-eye" viewBox="0 0 24 24"><path d="M12 5C7 5 2.700 8.100 1 12.500 2.700 16.900 7 20 12 20s9.300-3.100 11-7.500C21.300 8.100 17 5 12 5zm0 12.500a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></symbol>
+  <symbol id="g-trash" viewBox="0 0 24 24"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.500l-1-1h-5l-1 1H5v2h14z"/></symbol>
+  <symbol id="g-cog" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.900 5a7.800 7.800 0 0 0 0-2l2.100-1.600-2-3.500-2.500 1a8 8 0 0 0-1.700-1L16.400 3h-4l-.4 2.900a8 8 0 0 0-1.700 1l-2.500-1-2 3.500L7.500 11a7.800 7.800 0 0 0 0 2l-2.100 1.600 2 3.500 2.500-1c.5.400 1.100.7 1.700 1l.4 2.900h4l.4-2.900c.6-.3 1.200-.6 1.700-1l2.500 1 2-3.500z"/></symbol>
+  <symbol id="g-refresh" viewBox="0 0 24 24"><path d="M17.650 6.350A8 8 0 1 0 19.730 14h-2.080A6 6 0 1 1 12 6c1.660 0 3.140.69 4.220 1.780L13 11h7V4l-2.350 2.350z"/></symbol>
+  <symbol id="g-time" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.5 5H11v6l5.250 3.150.75-1.230-4.500-2.670V7z"/></symbol>
+  <symbol id="g-key" viewBox="0 0 24 24"><path d="M12.650 10A5.990 5.990 0 0 0 7 6a6 6 0 1 0 5.650 8H17v4h4v-4h2v-4H12.650zM7 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></symbol>
+  <symbol id="g-down" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></symbol>
+  <symbol id="g-up" viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></symbol>
+  <symbol id="g-ok" viewBox="0 0 24 24"><path d="M9 16.200L4.800 12l-1.400 1.400L9 19 21 7l-1.400-1.400z"/></symbol>
+  <symbol id="g-x" viewBox="0 0 24 24"><path d="M19 6.400L17.600 5 12 10.600 6.400 5 5 6.400 10.600 12 5 17.600 6.400 19 12 13.400 17.600 19 19 17.600 13.400 12z"/></symbol>
+  </defs></svg>
+  
+  <div id="app">
+    <header>
+      <svg class="glyphicon"><use href="#g-lock"/></svg><h1 id="title">Passwords</h1>
+      <button id="btnLock" title="Lock now"><svg class="glyphicon"><use href="#g-lock"/></svg></button>
+    </header>
+    <div class="search" id="searchBar"><svg class="glyphicon"><use href="#g-search"/></svg><input id="q" type="text" placeholder="Search accounts" autocomplete="off"></div>
+  
+    <main>
+      <section class="view on" id="v-pass"><div class="chips" id="chips"></div><div id="list"></div></section>
+      <section class="view" id="v-codes"><div id="codes"></div></section>
+      <section class="view" id="v-gen">
+        <div class="card"><h3>Password generator</h3>
+          <div class="genout" id="gOut"></div>
+          <div class="bar"><i id="gBar"></i></div>
+          <div class="row" style="margin:12px 0"><label style="margin:0;width:70px">Length <b id="gLenV">16</b></label><input id="gLen" type="range" min="6" max="48" value="16" style="flex:1"></div>
+          <div id="gOpts"></div>
+          <div class="row" style="margin-top:14px"><button class="btn sec" id="gNew" style="flex:1"><svg class="glyphicon"><use href="#g-refresh"/></svg>Regenerate</button><button class="btn" id="gCopy" style="flex:1"><svg class="glyphicon"><use href="#g-copy"/></svg>Copy</button></div>
+          <button class="btn sec w" id="gSave" style="margin-top:8px"><svg class="glyphicon"><use href="#g-plus"/></svg>Save as new account</button>
+        </div>
+      </section>
+      <section class="view" id="v-set">
+        <div class="card"><h3>Security</h3>
+          <label>Auto-lock after (minutes of inactivity)</label>
+          <select id="sLock"><option value="1">1</option><option value="5">5</option><option value="15">15</option><option value="60">60</option></select>
+          <label>Theme</label>
+          <select id="sTheme"><option value="auto">System</option><option value="light">Light</option><option value="dark">Dark</option></select>
+        </div>
+        <div class="card"><h3>Vault data</h3>
+          <div class="row"><button class="btn sec" id="bExp" style="flex:1"><svg class="glyphicon"><use href="#g-up"/></svg>Export JSON</button><button class="btn sec" id="bImp" style="flex:1"><svg class="glyphicon"><use href="#g-down"/></svg>Import JSON</button></div>
+          <p style="color:var(--mu);font-size:12.500px;margin:10px 0 0">Your vault is encrypted with AES-256-GCM using a key derived from your master password (PBKDF2, 150,000 rounds). Exports are plain text, so keep them safe.</p>
+        </div>
+        <div class="card"><h3>Security audit</h3><div id="audit"></div></div>
+        <div class="card"><h3>Danger zone</h3><button class="btn dg w" id="bWipe"><svg class="glyphicon"><use href="#g-trash"/></svg>Erase vault</button></div>
+      </section>
+    </main>
+  
+    <button class="fab" id="fab" title="Add account"><svg class="glyphicon"><use href="#g-plus"/></svg></button>
+    <nav>
+      <button data-v="pass" class="on"><svg class="glyphicon"><use href="#g-key"/></svg>Passwords</button>
+      <button data-v="codes"><svg class="glyphicon"><use href="#g-time"/></svg>Codes</button>
+      <button data-v="gen"><svg class="glyphicon"><use href="#g-refresh"/></svg>Generator</button>
+      <button data-v="set"><svg class="glyphicon"><use href="#g-cog"/></svg>Settings</button>
+    </nav>
+  
+    <div class="sheet-bg" id="sheetBg"><div class="sheet" id="sheet"></div></div>
+    <div id="lock">
+      <svg class="glyphicon"><use href="#g-lock"/></svg>
+      <h1>Password Manager</h1><p id="lockMsg">Enter your master password</p>
+      <input id="mp" type="password" placeholder="Master password" autocomplete="off">
+      <input id="mp2" type="password" placeholder="Confirm master password" class="hide" autocomplete="off">
+      <div class="err" id="lockErr"></div>
+      <button class="btn w" id="unlock">Unlock</button>
+    </div>
+    <div id="toast"></div>
+  </div>
+  
+  <script>
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const ic=n=>`<svg class="glyphicon"><use href="#g-${n}"/></svg>`;
+  const store={m:{},get(k){try{return localStorage.getItem(k)}catch(e){return this.m[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){this.m[k]=v}},del(k){try{localStorage.removeItem(k)}catch(e){delete this.m[k]}}};
+  
+  /* ---------- AJAX: XMLHttpRequest + JSON service catalog ---------- */
+  function ajax(method,url,body){return new Promise((ok,no)=>{try{const x=new XMLHttpRequest();x.open(method,url);x.onload=()=>{try{x.status<400?ok(JSON.parse(x.responseText)):no(x.status)}catch(e){no(e)}};x.onerror=()=>no('network');x.send(body||null)}catch(e){no(e)}})}
+  const CATALOG=JSON.stringify({services:[{n:"Google",c:"#ea4335"},{n:"Microsoft",c:"#0078d4"},{n:"GitHub",c:"#24292f"},{n:"Amazon",c:"#ff9900"},{n:"Facebook",c:"#1877f2"},{n:"Twitter",c:"#1d9bf0"},{n:"Netflix",c:"#e50914"},{n:"Spotify",c:"#1db954"},{n:"LinkedIn",c:"#0a66c2"},{n:"Apple",c:"#555555"},{n:"PayPal",c:"#003087"},{n:"Dropbox",c:"#0061ff"}]});
+  let services=[];
+  (async()=>{try{const u=URL.createObjectURL(new Blob([CATALOG],{type:'application/json'}));services=(await ajax('GET',u)).services;URL.revokeObjectURL(u)}catch(e){services=JSON.parse(CATALOG).services}})();
+  
+  /* ---------- crypto ---------- */
+  const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))),unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+  const S={entries:[],settings:{lock:5,theme:'auto'},key:null,salt:null,cat:'All',tab:'pass'};
+  async function derive(pw,salt){const m=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},m,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+  async function save(){const iv=crypto.getRandomValues(new Uint8Array(12));const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},S.key,new TextEncoder().encode(JSON.stringify({entries:S.entries,settings:S.settings})));store.set('pm_vault',JSON.stringify({s:b64(S.salt),i:b64(iv),d:b64(ct)}))}
+  async function open(pw){const v=JSON.parse(store.get('pm_vault'));S.salt=unb64(v.s);S.key=await derive(pw,S.salt);const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(v.i)},S.key,unb64(v.d));Object.assign(S,JSON.parse(new TextDecoder().decode(pt)))}
+  
+  /* ---------- TOTP (RFC 6238) ---------- */
+  function b32(s){const A='ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';let b='';const o=[];for(const c of s.replace(/[\s=]/g,'').toUpperCase()){const i=A.indexOf(c);if(i<0)throw 0;b+=i.toString(2).padStart(5,'0')}for(let i=0;i+8<=b.length;i+=8)o.push(parseInt(b.substr(i,8),2));return new Uint8Array(o)}
+  async function totp(sec){try{const k=await crypto.subtle.importKey('raw',b32(sec),{name:'HMAC',hash:'SHA-1'},false,['sign']);let c=Math.floor(Date.now()/30000);const m=new Uint8Array(8);for(let i=7;i>=0;i--){m[i]=c&255;c=Math.floor(c/256)}const h=new Uint8Array(await crypto.subtle.sign('HMAC',k,m));const o=h[19]&15;return String(((h[o]&127)<<24|h[o+1]<<16|h[o+2]<<8|h[o+3])%1e6).padStart(6,'0')}catch(e){return null}}
+  
+  /* ---------- helpers ---------- */
+  let tt;function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),1800)}
+  let clipT;async function copy(t,msg){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}toast(msg||'Copied');clearTimeout(clipT);clipT=setTimeout(()=>{try{navigator.clipboard.writeText('')}catch(e){}},30000)}
+  const PAL=['#0078d4','#107c10','#d13438','#8764b8','#ca5010','#038387','#c239b3','#498205'];
+  function colorFor(n){const s=services.find(x=>x.n.toLowerCase()===String(n).trim().toLowerCase());if(s)return s.c;let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))>>>0;return PAL[h%PAL.length]}
+  function strength(p){let s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(p.length>=16)s++;if(/[a-z]/.test(p)&&/[A-Z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;return Math.min(4,Math.floor(s*4/6+(s>0?.5:0)))}
+  const SC=['#d13438','#d13438','#ca5010','#c7b200','#107c10'];
+  function setBar(el,p){const s=p?strength(p):0;el.style.width=(s*25)+'%';el.style.background=SC[s]}
+  const OPT={upper:['Uppercase (A–Z)','ABCDEFGHIJKLMNOPQRSTUVWXYZ'],lower:['Lowercase (a–z)','abcdefghijklmnopqrstuvwxyz'],digits:['Numbers (0–9)','0123456789'],symbols:['Symbols (!@#$)','!@#$%^&*()-_=+[]{};:,.?']};
+  function gen(len=16,o={upper:1,lower:1,digits:1,symbols:1}){let pool='';const req=[];for(const k in OPT)if(o[k]){pool+=OPT[k][1];req.push(OPT[k][1])}if(!pool){pool=OPT.lower[1];req.push(pool)}const r=n=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n};const out=req.map(s=>s[r(s.length)]);while(out.length<len)out.push(pool[r(pool.length)]);for(let i=out.length-1;i>0;i--){const j=r(i+1);[out[i],out[j]]=[out[j],out[i]]}return out.slice(0,len).join('')}
+  
+  /* ---------- lock screen ---------- */
+  let idle;function bump(){clearTimeout(idle);if(S.key)idle=setTimeout(lockNow,S.settings.lock*60000)}
+  ['click','keydown','touchstart'].forEach(e=>document.addEventListener(e,bump));
+  function lockNow(){S.key=null;S.entries=[];$('#mp').value=$('#mp2').value='';$('#lock').classList.remove('hide');$('#sheetBg').classList.remove('on');initLock()}
+  function initLock(){const has=!!store.get('pm_vault');$('#mp2').classList.toggle('hide',has);$('#lockMsg').textContent=has?'Enter your master password':'Create a master password to protect your vault';$('#unlock').textContent=has?'Unlock':'Create vault';$('#lockErr').textContent='';$('#mp').focus()}
+  async function doUnlock(){const pw=$('#mp').value,has=!!store.get('pm_vault');$('#lockErr').textContent='';if(pw.length<8&&!has)return $('#lockErr').textContent='Use at least 8 characters.';try{if(has)await open(pw);else{if(pw!==$('#mp2').value)return $('#lockErr').textContent='Passwords do not match.';S.salt=crypto.getRandomValues(new Uint8Array(16));S.key=await derive(pw,S.salt);S.entries=[{id:Date.now(),name:'Microsoft',user:'you@example.com',pass:gen(16),url:'',notes:'Sample entry. Edit or delete me.',fav:true,secret:'JBSWY3DPEHPK3PXP',cat:'Work'}];await save()}}catch(e){S.key=null;return $('#lockErr').textContent='Incorrect master password.'}
+  $('#lock').classList.add('hide');$('#mp').value=$('#mp2').value='';applyTheme();render();bump()}
+  $('#unlock').onclick=doUnlock;$('#mp').onkeydown=$('#mp2').onkeydown=e=>{if(e.key==='Enter')doUnlock()};$('#btnLock').onclick=lockNow;
+  function applyTheme(){const t=S.settings.theme;t==='auto'?document.documentElement.removeAttribute('data-theme'):document.documentElement.setAttribute('data-theme',t)}
+  
+  /* ---------- navigation ---------- */
+  const TITLES={pass:'Passwords',codes:'Authenticator codes',gen:'Generator',set:'Settings'};
+  function go(v){S.tab=v;$$('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#title').textContent=TITLES[v];$('#searchBar').classList.toggle('hide',v!=='pass'&&v!=='codes');$('#fab').classList.toggle('hide',v!=='pass');render()}
+  $$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.v));$('#q').oninput=render;$('#fab').onclick=()=>edit();
+  
+  /* ---------- render ---------- */
+  function filtered(){const q=$('#q').value.toLowerCase();return S.entries.filter(e=>(S.cat==='All'||(S.cat==='Favorites'?e.fav:S.cat==='Weak'?strength(e.pass)<2:e.cat===S.cat))&&(!q||(e.name+e.user+e.url).toLowerCase().includes(q))).sort((a,b)=>(b.fav-a.fav)||a.name.localeCompare(b.name))}
+  function render(){if(!S.key)return;
+   if(S.tab==='pass'){const cats=['All','Favorites','Weak',...new Set(S.entries.map(e=>e.cat).filter(Boolean))];$('#chips').innerHTML=cats.map(c=>`<button class="chip ${c===S.cat?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');$$('.chip').forEach(b=>b.onclick=()=>{S.cat=b.dataset.c;render()});
+    const l=filtered();$('#list').innerHTML=l.length?l.map(e=>`<div class="item" data-id="${e.id}"><div class="av" style="background:${colorFor(e.name)}">${esc(e.name[0]||'?').toUpperCase()}</div><div class="meta"><b>${esc(e.name)}</b><small>${esc(e.user)}</small></div><button class="ib fav" data-a="fav" title="Favorite" style="${e.fav?'':'opacity:.35'}">${ic('star')}</button><button class="ib" data-a="cu" title="Copy username">${ic('x').replace('#g-x','#g-search')}</button><button class="ib" data-a="cp" title="Copy password">${ic('copy')}</button></div>`).join(''):`<div class="empty">${ic('lock')}<p>No accounts here yet.<br>Tap + to add your first one.</p></div>`;
+    $$('#list .item').forEach(r=>r.onclick=async ev=>{const e=S.entries.find(x=>x.id==r.dataset.id),a=ev.target.closest('[data-a]')?.dataset.a;if(a==='cp')copy(e.pass,'Password copied');else if(a==='cu')copy(e.user,'Username copied');else if(a==='fav'){e.fav=!e.fav;await save();render()}else edit(e)})}
+   if(S.tab==='codes'){const q=$('#q').value.toLowerCase(),l=S.entries.filter(e=>e.secret&&(!q||e.name.toLowerCase().includes(q)));$('#codes').innerHTML=l.length?l.map(e=>`<div class="item" data-id="${e.id}"><div class="av" style="background:${colorFor(e.name)}">${esc(e.name[0]).toUpperCase()}</div><div class="meta"><small>${esc(e.name)} · ${esc(e.user)}</small><span class="code" data-code="${e.id}">––– –––</span></div><svg class="ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" stroke="var(--bd)"/><circle cx="18" cy="18" r="15" stroke="var(--pr)" data-ring stroke-dasharray="94.25" stroke-dashoffset="0"/></svg></div>`).join(''):`<div class="empty">${ic('time')}<p>No codes yet.<br>Add a 2FA secret key to an account.</p></div>`;
+    $$('#codes .item').forEach(r=>r.onclick=()=>copy(r.querySelector('.code').textContent.replace(/\s/g,''),'Code copied'));tick()}
+   if(S.tab==='gen')genRender(false);
+   if(S.tab==='set'){$('#sLock').value=S.settings.lock;$('#sTheme').value=S.settings.theme;const w=S.entries.filter(e=>strength(e.pass)<2).length,d=S.entries.length-new Set(S.entries.map(e=>e.pass)).size;$('#audit').innerHTML=`<div class="opt"><span>Accounts</span><b>${S.entries.length}</b></div><div class="opt"><span>Weak passwords</span><b style="color:${w?'var(--dg)':'var(--ok)'}">${w}</b></div><div class="opt"><span>Reused passwords</span><b style="color:${d?'var(--wn)':'var(--ok)'}">${d}</b></div>`}}
+  async function tick(){if(!S.key||S.tab!=='codes')return;const sec=30-(Math.floor(Date.now()/1000)%30);for(const e of S.entries){const el=document.querySelector(`[data-code="${e.id}"]`);if(!el)continue;const c=e.secret&&await totp(e.secret);el.textContent=c?c.slice(0,3)+' '+c.slice(3):'Invalid key';const r=el.closest('.item').querySelector('[data-ring]');r.style.strokeDashoffset=94.25*(1-sec/30);r.style.stroke=sec<=5?'var(--dg)':'var(--pr)'}}
+  setInterval(tick,1000);
+  
+  /* ---------- generator ---------- */
+  let gO={upper:1,lower:1,digits:1,symbols:1},gPw='';
+  function genRender(n=true){if(!$('#gOpts').innerHTML)$('#gOpts').innerHTML=Object.keys(OPT).map(k=>`<div class="opt"><span>${OPT[k][0]}</span><input type="checkbox" data-o="${k}" checked></div>`).join('');if(n||!gPw)gPw=gen(+$('#gLen').value,gO);$('#gOut').textContent=gPw;setBar($('#gBar'),gPw);$('#gLenV').textContent=$('#gLen').value}
+  $('#gLen').oninput=()=>genRender();$('#gNew').onclick=()=>genRender();$('#gCopy').onclick=()=>copy(gPw,'Password copied');$('#gSave').onclick=()=>edit(null,gPw);
+  $('#gOpts').onchange=e=>{gO[e.target.dataset.o]=e.target.checked?1:0;genRender()};
+  
+  /* ---------- add / edit sheet ---------- */
+  function sheet(h){$('#sheet').innerHTML=h;$('#sheetBg').classList.add('on')}
+  function closeSheet(){$('#sheetBg').classList.remove('on')}
+  $('#sheetBg').onclick=e=>{if(e.target.id==='sheetBg')closeSheet()};
+  function edit(e,pw){const n=!e;e=e||{id:Date.now(),name:'',user:'',pass:pw||'',url:'',notes:'',fav:false,secret:'',cat:''};
+   sheet(`<h2>${n?'Add account':'Edit account'}</h2>
+   <label>Name</label><input type="text" id="fN" list="svc" value="${esc(e.name)}" placeholder="e.g. GitHub"><datalist id="svc">${services.map(s=>`<option value="${esc(s.n)}">`).join('')}</datalist>
+   <label>Username or email</label><input type="text" id="fU" value="${esc(e.user)}" autocomplete="off">
+   <label>Password</label><div class="row"><input type="password" id="fP" value="${esc(e.pass)}" autocomplete="off"><button class="ib" id="fEye" title="Show">${ic('eye')}</button><button class="ib" id="fG" title="Generate">${ic('refresh')}</button><button class="ib" id="fC" title="Copy">${ic('copy')}</button></div>
+   <div class="bar"><i id="fB"></i></div>
+   <label>Website</label><input type="text" id="fW" value="${esc(e.url)}" placeholder="https://">
+   <label>Category</label><input type="text" id="fT" value="${esc(e.cat)}" list="cats" placeholder="Work, Personal, Finance…"><datalist id="cats">${[...new Set(S.entries.map(x=>x.cat).filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+   <label>2FA secret key (optional, base32)</label><input type="text" id="fS" value="${esc(e.secret)}" placeholder="JBSWY3DPEHPK3PXP" autocomplete="off">
+   <label>Notes</label><textarea id="fNo" rows="2">${esc(e.notes)}</textarea>
+   <div class="err" id="fErr" style="color:var(--dg);min-height:20px;font-size:13px"></div>
+   <div class="row" style="margin-top:6px">${n?'':`<button class="btn dg" id="fD">${ic('trash')}</button>`}<button class="btn sec" id="fX" style="flex:1">Cancel</button><button class="btn" id="fOk" style="flex:2">${ic('ok')}Save</button></div>`);
+   const P=$('#fP');setBar($('#fB'),P.value);P.oninput=()=>setBar($('#fB'),P.value);
+   $('#fEye').onclick=()=>P.type=P.type==='password'?'text':'password';$('#fG').onclick=()=>{P.value=gen(18);P.type='text';setBar($('#fB'),P.value)};$('#fC').onclick=()=>copy(P.value,'Password copied');$('#fX').onclick=closeSheet;
+   if($('#fD'))$('#fD').onclick=async()=>{if(!confirm('Delete this account?'))return;S.entries=S.entries.filter(x=>x.id!==e.id);await save();closeSheet();render();toast('Deleted')};
+   $('#fOk').onclick=async()=>{const v={name:$('#fN').value.trim(),user:$('#fU').value.trim(),pass:P.value,url:$('#fW').value.trim(),cat:$('#fT').value.trim(),secret:$('#fS').value.trim(),notes:$('#fNo').value.trim()};
+    if(!v.name)return $('#fErr').textContent='Please enter a name.';if(v.secret&&!(await totp(v.secret)))return $('#fErr').textContent='That 2FA secret is not valid base32.';
+    Object.assign(e,v);if(n)S.entries.push(e);await save();closeSheet();render();toast('Saved')}}
+  
+  /* ---------- settings / import / export ---------- */
+  $('#sLock').onchange=async e=>{S.settings.lock=+e.target.value;await save();bump()};
+  $('#sTheme').onchange=async e=>{S.settings.theme=e.target.value;await save();applyTheme()};
+  $('#bExp').onclick=()=>{const j=JSON.stringify({app:'password-manager',version:1,entries:S.entries},null,2);sheet(`<h2>Export vault</h2><p style="color:var(--mu)">Plain-text JSON. Copy it and store it somewhere safe.</p><textarea rows="10" readonly style="font-family:monospace;font-size:12px">${esc(j)}</textarea><div class="row" style="margin-top:12px"><button class="btn sec" id="xC" style="flex:1">Close</button><button class="btn" id="xCp" style="flex:1">${ic('copy')}Copy</button></div>`);$('#xC').onclick=closeSheet;$('#xCp').onclick=()=>copy(j,'Export copied')};
+  $('#bImp').onclick=()=>{sheet(`<h2>Import JSON</h2><p style="color:var(--mu)">Paste a previous export. Entries are added to your vault.</p><textarea id="iT" rows="9" style="font-family:monospace;font-size:12px"></textarea><div class="err" id="iE" style="color:var(--dg);min-height:20px"></div><div class="row"><button class="btn sec" id="iX" style="flex:1">Cancel</button><button class="btn" id="iOk" style="flex:1">Import</button></div>`);$('#iX').onclick=closeSheet;
+   $('#iOk').onclick=async()=>{try{const d=JSON.parse($('#iT').value),l=Array.isArray(d)?d:d.entries;if(!Array.isArray(l))throw 0;let i=0;for(const x of l)if(x&&x.name){S.entries.push({id:Date.now()+(i++),name:String(x.name),user:String(x.user||''),pass:String(x.pass||''),url:String(x.url||''),notes:String(x.notes||''),fav:!!x.fav,secret:String(x.secret||''),cat:String(x.cat||'')})}await save();closeSheet();render();toast(i+' imported')}catch(e){$('#iE').textContent='That does not look like a valid export.'}}};
+  $('#bWipe').onclick=()=>{if(confirm('Erase the entire vault? This cannot be undone.')){store.del('pm_vault');lockNow()}};
+  
+  initLock();
+  </script>
+  </body>
+  </html>
