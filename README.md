@@ -16,14 +16,14 @@ A single-file, offline password manager with an Authenticator-style interface. I
 
 ## Getting started
 
-1. Download `password-manager.html`.
+1. Download `index.html`.
 2. Open it in a modern browser. No build step, server or internet connection is needed.
 3. On first launch, create a master password (at least 8 characters). A sample account is added so you can see how it looks. Edit or delete it.
 
 ## Project structure
 
 ```
-password-manager.html   HTML, CSS and JavaScript in one file
+index.html   HTML, CSS and JavaScript in one file
 LICENSE                 MIT license
 README.md               This file
 ```
